@@ -21,3 +21,46 @@
 
 # Some open issues:
 # * How to differentiate between work-day and home tasks?
+
+import datetime
+
+class WorkItem:
+    """
+    The base class for tasks and projects.
+    """
+    def __init__(self):
+        self.__due_date = None
+        self.__priority = -1
+        self.__contacts = []
+        self.__info_links = None
+
+
+    @property
+    def priority(self):
+        return self.__priority
+
+    @priority.setter
+    def priority(self, value):
+        if value < -1 or value > 2:
+            raise ValueError('Priority values must be between -1 and 2.')
+
+    @property
+    def due_date(self):
+        return self.__due_date
+
+    @due_date.setter
+    def due_date(self, date):
+        if date < datetime.datetime.now():
+            raise ValueError('Due dates must be in the future.')
+
+    def add_contact(self, contact):
+        # Validate the variable?
+
+        self.__contacts.append(contact)
+
+
+
+
+
+
+
