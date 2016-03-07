@@ -87,6 +87,46 @@ class Contact:
         self.__email = address
 
 
+class InfoLink:
+    """
+    A simple class for informational links
+    """
+    def __init__(self, title=None, desc=None, url=None):
+        self.__title = title
+        self.__description = desc
+        self.__url = url
+
+    @property
+    def title(self):
+        return self.__title
+
+    @title.setter
+    def title(self, value):
+        assert isinstance(value, str), 'Link titles must be strings.'
+
+        self.__title = value
+
+    @property
+    def description(self):
+        return self.__description
+
+    @description.setter
+    def description(self, desc):
+        assert isinstance(desc, str), 'Link descriptions must be strings.'
+
+        self.__description = desc
+
+    @property
+    def url(self):
+        return self.__url
+
+    @url.setter
+    def url(self, target):
+        assert isinstance(target, str), 'Link targets must be strings.'
+
+        self.__url = target
+
+
 class WorkItem:
     """
     The base class for tasks and projects.
@@ -96,8 +136,8 @@ class WorkItem:
         self.__due_date = None
         self.__priority = -1
         self.__contacts = []
-        self.__info_links = None
-        self.__tasks = None
+        self.__info_links = []
+        self.__tasks = []
 
     @property
     def description(self):
@@ -126,6 +166,10 @@ class WorkItem:
         if date < datetime.datetime.now():
             raise ValueError('Due dates must be in the future.')
 
+    @property
+    def contacts(self):
+        return self.__contacts
+
     def add_contact(self, contact):
         # Validate the argument?
 
@@ -139,6 +183,21 @@ class WorkItem:
 
         # We'll only get to this point if the name isn't found
         return False
+
+    @property
+    def info_links(self):
+        return self.__info_links
+
+    def add_info_link(self, title=None, desc=None, target=None):
+        for link in self.__info_links:
+            if link.title == title and link.description == desc:
+                raise ValueError('No duplicate links allowed.')
+
+        self.__info_links.append(InfoLink(title, desc, target))
+
+
+
+
 
 
 
