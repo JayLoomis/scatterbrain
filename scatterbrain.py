@@ -25,6 +25,7 @@
 import datetime
 
 
+
 class Contact:
     """
     Structure-style class for holding contact information.
@@ -131,10 +132,11 @@ class WorkItem:
     """
     The base class for tasks and projects.
     """
-    def __init__(self):
-        self.__description = None
-        self.__due_date = None
-        self.__priority = -1
+    def __init__(self, title, description=None, due=None, priority=-1):
+        self.__title = title
+        self.__description = description
+        self.__due_date = due
+        self.__priority = priority
         self.__contacts = []
         self.__info_links = []
         self.__tasks = []
@@ -212,7 +214,21 @@ class WorkItem:
 
 
 class Task(WorkItem):
+    pass
 
+
+
+def create_work_item_ui():
+    my_title = input('Enter a title for the work item: ')
+    my_desc = input('Enter a description: ')
+    my_due_date = input('Enter a due date (mm/dd/yyyy):')
+    my_priority = input('Enter a priority (0-2, or -1 for none):')
+
+    date_pieces = my_due_date.split('/')
+
+    my_due_date = datetime.date(int(date_pieces[2]), int(date_pieces[0]), int(date_pieces[1]))
+
+    new_item = WorkItem(my_title, my_desc, my_due_date, my_priority)
 
 
 
