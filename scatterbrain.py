@@ -195,6 +195,26 @@ class WorkItem:
 
         self.__info_links.append(InfoLink(title, desc, target))
 
+    @property
+    def tasks(self):
+        return self.__tasks
+
+    @tasks.setter
+    def tasks(self, task_list):
+        self.__tasks = task_list
+
+    def add_task(self, task):
+        assert isinstance(task, WorkItem), 'Only task objects can be added to the task list'
+
+        self.__tasks.append(task)
+
+    def remove_task(self):
+
+
+class Task(WorkItem):
+
+
+
 
 
 
